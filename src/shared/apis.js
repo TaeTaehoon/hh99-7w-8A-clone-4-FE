@@ -4,8 +4,12 @@ export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URI,
 });
 
-axiosInstance.defaults.headers.common["Authorization"] =
-  localStorage.getItem("accessToken");
+export const setInstanceHeader = (payload) => {
+  axiosInstance.defaults.headers.common.Authorization = payload;
+};
+
+// axiosInstance.defaults.headers.common["Authorization"] =
+//   localStorage.getItem("accessToken");
 
 axiosInstance.interceptors.response.use(
   function (res) {
@@ -41,7 +45,13 @@ export const apis = {
   },
   getFrind: async () => {
     try {
-      const requestRes = await axiosInstance.get("/api/friends");
+      axiosInstance.defaults.headers.common.Authorization =
+        localStorage.getItem("accessToken");
+      const requestRes = await axiosInstance.get("/api/friends", {
+        headers: {
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      });
 
       return requestRes.data;
     } catch (error) {

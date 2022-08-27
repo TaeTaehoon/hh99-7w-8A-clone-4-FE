@@ -10,6 +10,7 @@ import {
   __addFriend,
 } from "../../redux/modules/friendSlice";
 import ProfileCard from "../../elements/ProfileCard";
+import axios from "axios";
 
 function Header({ isOn, stompClient }) {
   const findFriendProfile = useSelector(
@@ -125,9 +126,9 @@ function Header({ isOn, stompClient }) {
               onChange={onChange}
               onInput={numberMaxLength}
               value={findName}
-              maxLength="20"
+              maxLength="30"
             />
-            <span className="input-info">{`${findName.length}/20`}</span>
+            <span className="input-info">{`${findName.length}/30`}</span>
 
             <button>찾기</button>
           </form>
